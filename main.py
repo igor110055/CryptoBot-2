@@ -35,10 +35,10 @@ def getValues(value):
     return valueData
 
 def storeAssetToDatabase(key, value, day):
-    querry = "CREATE TABLE assets" + day + " (id INT NOT NULL AUTO_INCREMENT, asset VARCHAR(255), altname VARCHAR(255))"
+    querry = "CREATE TABLE assets" + day + " (id INT NOT NULL AUTO_INCREMENT, asset VARCHAR(255), altname VARCHAR(255), PRIMARY KEY (id));"
     mycursor.execute(querry)
     for i in range(len(key)):
-        querry = "INSERT INTO assets" + day + "(asset, altname) VALUES (%s, %s)"
+        querry = "INSERT INTO assets" + day + "(asset, altname) VALUES (%s, %s);"
         values = (key[i], value[i])
         mycursor.execute(querry, values)
         mydb.commit()
@@ -59,6 +59,4 @@ def wrapper(fileName, value):
 
 if __name__ == '__main__':
     wrapper('Data.csv', 'altname')
-    for i in pair['result'].keys():
-        print(i)
-        print(pair['result'][i]['quote'])
+    storeAssetToDatabase(getKeys(), getValues('asset'), '1')
